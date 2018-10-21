@@ -1,31 +1,32 @@
-//We're going to be using javascript for this, also check out the extensions of visual studio code, because they're very handy and makes it easier for your to code!
-// The round thing above means it's not saved, always save your work after you have written some code, else the bot might not work :3
-//Okay so I put my token is the token.json file which I won't show you lol
+//Let's get started with this!
 
-//Let's start coding!
+const Discord = require('discord.js'); //Requires the package: discord.js
+const client = new Discord.Client(); //Makes a new discord user
+const botconfig = require('./botconfig.json'); //Requires the botconfig file we just set up
 
-const Discord = require("discord.js"); //This basically tells that it needs discord.js
-const botconfig = require("./botconfig.json") //Refers to our botconfig file we just made
-const token = require("./token.json"); //Refers to our token.json file we just made which the token is in
-
-const bot = new Discord.Client(); //This makes our bot a new client on discord
-
-
-bot.on("ready", async => { //This will run as soon as the bot went online, I want it to log that's it's online
-    console.log("I am online boss!");
+client.on('ready', async => {
+	console.log("I am online daddy!");
 });
 
-//We can now test if our bot goes online!
-//So it is online now, but it doesn't do anything yet :/
+client.on('message', async message =>{
+	const prefix = botconfig.prefix;
+	const args = message.content.slice(prefix.length).trim().split(' ');
 
-//I am going to make a little test command for this episode
+	if(message.content === prefix + 'ping'){
+		message.channel.send('pong!');
+	}
 
-bot.on("message", async message => {
-    if(message.content === "ping"){
-        message.channel.send("pong!");
-    }
+	if(message.content.startsWith(prefix + 'name')){
+		let name = args[1];
+
+		message.channel.send(`Hi ${name}`);
+	}
+
+	
+
+	//This will define our args if we want to use something with more then one word
+
+
 });
 
-
-//This must always be all the way down
-bot.login(token.token);
+client.login(botconfig.token) //Logs in with the token that is in the botconfig file
