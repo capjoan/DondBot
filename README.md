@@ -1,2 +1,0 @@
-# DondBot
-A tutorial bot
